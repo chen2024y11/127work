@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function basc64(content) {
+            const base64Chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+            var arr = [];
+            for(var i = 0; i < content.length; i++) {
+                var binCode = content[i].charCodeAt().toString(2).replace(/^/,'0000000').slice(-8)
+                arr.push(binCode);
+            }
+            var binCodeStr = arr.join('');
+            var res = "";
+            var binCodeStrPaddingZero = binCodeStr + ("0").repeat(6-(binCodeStr.length%6));
+            var binCodeList = binCodeStrPaddingZero.match(/[01]{6}/g);
+            for(var j = 0; j < binCodeList.length; j++) {
+                var index = parseInt(binCodeList[j],2);
+                res += base64Chars[index];
+            }
+            res = res + ("=").repeat(8-(res.length%8));
+            return res;
+        }
+        console.log(basc64("java"))
+</script>
+</html>
